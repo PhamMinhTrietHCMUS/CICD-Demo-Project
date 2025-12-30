@@ -1,29 +1,72 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <title>FUWAMOCO</title>
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: linear-gradient(135deg, #ffb6c1, #87ceeb); min-height: 100vh; margin: 0; box-sizing: border-box; }
-        .container { background: white; padding: 30px; border-radius: 10px; max-width: 600px; margin: auto; }
-        h1 { color: #ff69b4; }
-        .status { background: #ff69b4; color: white; padding: 10px; border-radius: 5px; }
-        #time { font-size: 24px; color: #3498db; margin: 20px 0; }
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #ff69b4; color: white; border: none; border-radius: 10px; }
-        button:hover { background: #ff1493; }
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #ffb6c1, #87ceeb);
+            min-height: 100vh;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #ff69b4;
+        }
+
+        .status {
+            background: #ff69b4;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #time {
+            font-size: 24px;
+            color: #3498db;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background: #ff1493;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>🐾 FUWAMOCO 🐾</h1>
+        <h1>🐾 FUWAMOCO - CI/CD WORKS 🐾</h1>
         <img src="FUWAMOCO.webp" alt="FUWAMOCO" style="max-width: 300px; border-radius: 10px; margin: 10px 0;">
         <p class="status">BAU BAU!</p>
-        
+
         <div id="time"></div>
-        
+
         <p>Số lần BAU BAU: <span id="count">0</span></p>
         <button onclick="tangCount()">🐶 BAU BAU! 🐶</button>
-        
+
         <audio id="sound" src="baubau.wav"></audio>
     </div>
 
@@ -45,4 +88,5 @@
         }
     </script>
 </body>
+
 </html>
