@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    triggers {
+        // Kiểm tra thay đổi trên GitHub mỗi phút một lần
+        pollSCM '* * * * *' 
+    }
+
     
     environment {
         IMAGE_NAME = 'cicd-app'
