@@ -1,122 +1,111 @@
 # CI/CD Demo Project - Docker Edition
 
-## Mô tả
-Triển khai CI/CD sử dụng Git, Jenkins và Docker (tất cả chạy trên Docker)
+## Gioi thieu
+Du an demo quy trinh CI/CD tu dong hoa viec trien khai ung dung Web.
+He thong su dung Jenkins chay tren Docker de xay dung va trien khai ung dung moi khi co thay doi ma nguon.
 
-## Cấu trúc Project
-```
-├── index.html          # Web application
-├── Dockerfile          # Docker config cho web app
-├── docker-compose.yml  # Jenkins + Web App services
-├── Jenkinsfile         # Jenkins pipeline
-├── start.bat           # Script khởi động
-└── README.md
-```
+## Kien truc he thong
+1.  Source Control: GitHub
+2.  CI/CD Server: Jenkins (chay trong Docker Container)
+3.  Deployment: Web App (Nginx chay trong Docker Container)
+4.  Flow:
+    - Commit code -> GitHub
+    - Jenkins quet GitHub (moi phut) -> Phat hien thay doi
+    - Jenkins Pull code -> Build Docker Image -> Deploy Container moi
+
+## Cau truc Project
+- index.html: Ma nguon Web App
+- Dockerfile: Cau hinh Docker cho Web App
+- Dockerfile.jenkins: Custom Image cho Jenkins (kem san Docker CLI)
+- docker-compose.yml: Dinh nghia toan bo he thong (Jenkins + Web)
+- Jenkinsfile: Kich ban Pipeline (Build & Deploy Steps)
+- start.bat: Script khoi dong nhanh cho Windows
+- README.md: Huong dan su dung
 
 ---
 
-## Yêu cầu
+## Khoi dong nhanh (Quick Start)
 
-- **Docker Desktop**: https://www.docker.com/products/docker-desktop/
-- **Git**: https://git-scm.com/download/win
+### Yeu cau
+- Docker Desktop (Da cai dat va dang chay)
+- Git
 
----
-
-## Khởi động nhanh
-
-### Cách 1: Chạy script
+### Buoc 1: Khoi dong he thong
+Cach don gian nhat la chay file script:
 ```bash
 start.bat
 ```
-
-### Cách 2: Chạy thủ công
+Hoac dung lenh:
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
+
+### Buoc 2: Truy cap
+- Jenkins (CI/CD): http://localhost:8080
+- Web App (San pham): http://localhost:8081
 
 ---
 
-## Các bước cấu hình chi tiết
+## Huong dan Demo CI/CD Tu dong
 
-### 1. Cấu hình Git (2 điểm)
-```bash
-git config --global user.name "23127132"
-git config --global user.email "23127132@student.hcmus.edu.vn"
-git add .
-git commit -m "Setup CI/CD with Docker"
-```
+De kiem chung tinh nang tu dong (Automation), hay lam theo cac buoc sau:
 
-### 2. Cấu hình GitHub (1 điểm)
-```bash
-git remote add origin https://github.com/23127132/CICD-Demo-Project.git
-git push -u origin main
-```
+1.  Kiem tra trang thai hien tai:
+    - Mo Web App tai http://localhost:8081.
+    - Ghi nho noi dung/mau sac hien tai.
 
-### 3. Cấu hình Docker (2 điểm)
-```bash
-# Khởi động services
-docker-compose up -d
+2.  Tao thay doi:
+    - Mo file index.html.
+    - Sua tieu de hoac mau nen (background color).
+    - Luu file.
 
-# Kiểm tra containers
-docker ps
-```
+3.  Day code len GitHub:
+    Mo terminal va chay:
+    ```bash
+    git add .
+    git commit -m "Update web content for Demo"
+    git push origin main
+    ```
 
-### 4. Cấu hình Jenkins (2 điểm)
+4.  Quan sat tu dong hoa:
+    - Quay lai man hinh Jenkins dashboard.
+    - Cho khoang 1 phut.
+    - Ban se thay Job cicd-demo tu dong chay (Build dang xu ly).
 
-1. Truy cập: http://localhost:8080
-
-2. Lấy initial password:
-```bash
-docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-```
-
-3. Tạo admin user: **23127132**
-
-4. Cài plugins: Git, Docker Pipeline, Pipeline
-
-### 5. Kết nối Jenkins & Docker (2 điểm)
-
-1. **Cài Docker CLI trong Jenkins**:
-```bash
-docker exec -it jenkins bash
-apt-get update && apt-get install -y docker.io
-exit
-```
-
-2. **Tạo Pipeline Job**:
-   - New Item → Pipeline → `cicd-demo`
-   - Pipeline script from SCM
-   - Git URL: `https://github.com/23127132/CICD-Demo-Project.git`
-   - Branch: `*/main`
-   - Script Path: `Jenkinsfile`
-
-3. **Build Now** và kiểm tra kết quả
+5.  Kiem tra ket qua:
+    - Sau khi Build thanh cong.
+    - Quay lai Web App http://localhost:8081.
+    - Reload trang -> Noi dung moi da duoc cap nhat!
 
 ---
 
-## URLs
+## Cai dat Jenkins lan dau (Neu chay moi tu dau)
+Neu ban xoa sach container va chay lai tu dau, can lam cac buoc setup mot lan duy nhat:
 
-| Service | URL |
-|---------|-----|
-| Jenkins | http://localhost:8080 |
-| Web App | http://localhost:8081 |
+1.  Truy cap http://localhost:8080.
+2.  Lay mat khau khoi tao:
+    ```bash
+    docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+    ```
+3.  Cai dat Plugins goi y (Install suggested plugins).
+4.  Tao tai khoan Admin.
+5.  Tao Pipeline Job moi:
+    - Chon Pipeline script from SCM.
+    - SCM: Git -> Dien URL Repo GitHub cua ban.
+    - Branch: */main.
+    - Script Path: Jenkinsfile.
+    - Save & Build Now (Lan dau tien phai kich hoat thu cong).
 
 ---
 
-## Dọn dẹp
-
+## Don dep he thong
+De tat va xoa sach moi truong sau khi demo:
 ```bash
-# Dừng tất cả
-docker-compose down
-
-# Xóa cả volumes
 docker-compose down -v
 ```
 
 ---
 
-## Thông tin nhóm
+## Thong tin nhom
 - MSSV: 23127132
-- Họ tên: [Điền họ tên]
-- SĐT: [Điền SĐT]  
 - Email: 23127132@student.hcmus.edu.vn
