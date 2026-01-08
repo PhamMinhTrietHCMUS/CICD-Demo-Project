@@ -17,7 +17,7 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
     restart: unless-stopped
 
-  web-app:
+  cicd-app:
     build: .
     container_name: cicd-app
     ports:
