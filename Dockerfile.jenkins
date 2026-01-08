@@ -1,29 +1,24 @@
 FROM jenkins/jenkins:lts
 USER root
 
-# 1. Install prerequisites to allow apt to use a repository over HTTPS
+# get prerequisites to allow apt to use a repository over HTTPS
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
     lsb-release
 
-# 2. Add Docker's Official GPG Key (The security signature)
+# signature
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# 3. Set up the Official Docker Repository
+# get the repository
 RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# 4. Install the Latest Docker CLI + Buildx + Compose Plugin
-#    - docker-ce-cli: The latest Docker Client
-#    - docker-compose-plugin: The modern 'docker compose' (v2)
+# get newest docker cli + buildx + compose
 RUN apt-get update && apt-get install -y docker-ce-cli docker-compose-plugin
 
-# 5. Compatibility Hack (Critical for your Jenkinsfile)
-#    Your script uses 'docker-compose' (with a hyphen).
-#    The modern plugin uses 'docker compose' (space).
-#    This line creates a fake command so your old scripts still work.
+# fake command to replace docker compose (space) to docker-compose (hyphen)
 RUN ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
