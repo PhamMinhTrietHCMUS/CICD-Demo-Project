@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo 'Stopping and removing old container...'
                 sh "docker-compose -p ${COMPOSE_PROJECT_NAME} stop ${CONTAINER_NAME} || true" // drop the -compose -p ....
-                sh "docker-compose -p ${COMPOSE_PROJECT_NAME} rm ${CONTAINER_NAME} || true"
+                sh "docker-compose -p ${COMPOSE_PROJECT_NAME} rm -f ${CONTAINER_NAME} || true"
                 // sh "docker stop ${CONTAINER_NAME} || true"
                 // sh "docker rm ${CONTAINER_NAME} || true"
             }
