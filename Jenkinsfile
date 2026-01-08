@@ -48,7 +48,7 @@ pipeline {
             steps {
                 echo 'Deploying new container...'
                 // sh "docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}"
-                sh "docker-compose -p ${COMPOSE_PROJECT_NAME} up -d --no-deps --build ${SERVICE_NAME}"
+                sh "docker-compose -p ${COMPOSE_PROJECT_NAME} up -d --no-deps --build ${IMAGE_NAME}"
             }
         }
         
