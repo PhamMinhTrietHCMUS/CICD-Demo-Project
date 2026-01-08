@@ -13,6 +13,9 @@ pipeline {
         CONTAINER_NAME = 'cicd-app'
         HOST_PORT = '8081'
         CONTAINER_PORT = '80'
+        // dont use new buildkit whatever it is
+        DOCKER_BUILDKIT = '0'
+        COMPOSE_DOCKER_CLI_BUILD = '0'
     }
     
     stages {
