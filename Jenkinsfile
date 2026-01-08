@@ -64,6 +64,7 @@ pipeline {
     post {
         success {
             echo 'CI/CD Pipeline completed successfully!'
+            sh "docker image prune -f" // prune the untagged stuff
         }
         failure {
             echo 'CI/CD Pipeline failed!'
